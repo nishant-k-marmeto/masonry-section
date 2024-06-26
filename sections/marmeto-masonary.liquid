@@ -1,0 +1,55 @@
+<div class="marmeto-container">    
+    {% for block in section.blocks %}
+        <div class="item-{{ forloop.index }}">
+            {%- if block.settings.image != blank -%}
+                {%- assign image_src = block.settings.image | image_url: width: 533 -%}
+                {%- capture image_srcset -%}
+                  {%- if block.settings.image.width >= 375 -%}{{ block.settings.image | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if block.settings.image.width >= 550 -%}{{ block.settings.image | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if block.settings.image.width >= 750 -%}{{ block.settings.image | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if block.settings.image.width >= 1100 -%}{{ block.settings.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if block.settings.image.width >= 1500 -%}{{ block.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if block.settings.image.width >= 1780 -%}{{ block.settings.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if block.settings.image.width >= 2000 -%}{{ block.settings.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if block.settings.image.width >= 3000 -%}{{ block.settings.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if block.settings.image.width >= 3840 -%}{{ block.settings.image | image_url: width: 3840 }} 3840w{%- endif -%}
+                {%- endcapture -%}
+                {%- assign image_alt = block.settings.image.alt | escape -%}
+      
+                {%- render 'marmeto-image',
+                  src: image_src,
+                  srcset: image_srcset,
+                  alt: image_alt,
+                  class: 'marmeto-img' -%}
+              {%- else -%}
+                {{- 'image' | placeholder_svg_tag: 'placeholder-svg' -}}
+              {%- endif -%}
+        </div>
+    {% endfor %}
+</div>
+{% schema %}
+    {
+      "name": "My New Sectiondfg",
+      "tag": "section",
+      "settings": [],
+      "blocks": [
+        {
+          "type": "image",
+          "name": "Image",
+          "limit": 15,
+          "settings": [
+            {
+              "type": "image_picker",
+              "label": "image",
+              "id": "image"
+            }
+          ]
+        }
+      ],
+      "presets": [
+        {
+          "name": "My New Sectiondfg"
+        }
+      ]
+    }
+    {% endschema %}
