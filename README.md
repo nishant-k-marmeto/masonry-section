@@ -15,9 +15,9 @@ This component provides a basic outline with minimal styling. To ensure it match
 **General Options**
 
 - [x]  Section padding option (0-100)
-- []  Option to add subheading and heading text
-- []  Option to choose text alignment
-- []  Option to choose image height (Desktop and Mobile)
+- [ ]  Option to add subheading and heading text
+- [ ]  Option to choose text alignment
+- [ ]  Option to choose image height (Desktop and Mobile)
 
 **Image Options**
 
