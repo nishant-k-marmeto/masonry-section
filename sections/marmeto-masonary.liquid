@@ -1,6 +1,7 @@
 <div class="marmeto-container">    
     {% for block in section.blocks %}
         <div class="item-{{ forloop.index }}">
+          <a href="{{ block.settings.url_redirection }}">
             {%- if block.settings.image != blank -%}
                 {%- assign image_src = block.settings.image | image_url: width: 533 -%}
                 {%- capture image_srcset -%}
@@ -16,7 +17,7 @@
                 {%- endcapture -%}
                 {%- assign image_alt = block.settings.image.alt | escape -%}
       
-                {%- render 'marmeto-image',
+                {%- render 'image',
                   src: image_src,
                   srcset: image_srcset,
                   alt: image_alt,
@@ -24,14 +25,40 @@
               {%- else -%}
                 {{- 'image' | placeholder_svg_tag: 'placeholder-svg' -}}
               {%- endif -%}
+          </a>
         </div>
     {% endfor %}
+
 </div>
 {% schema %}
     {
-      "name": "My New Sectiondfg",
+      "name": "Marmeto Masonary",
       "tag": "section",
-      "settings": [],
+      "class":"marmeto-masonary-section",
+      "settings": [
+        {  
+          "type": "range",
+          "label": "Margin Top",
+          "id": "margin_top",
+          "default": 0,
+          "info": "Adjust Top Margin",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "px"
+        },
+        {  
+          "type": "range",
+          "label": "Margin Bottom",
+          "id": "margin_bottom",
+          "default": 0,
+          "info": "Adjust Bottom Margin",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "px"
+        }
+      ],
       "blocks": [
         {
           "type": "image",
@@ -42,14 +69,26 @@
               "type": "image_picker",
               "label": "image",
               "id": "image"
+            },
+            {
+              "type": "url",
+              "label": "Select Redirection",
+              "id": "url_redirection"
             }
           ]
         }
       ],
       "presets": [
         {
-          "name": "My New Sectiondfg"
+          "name": "Marmeto Masonary"
         }
       ]
     }
-    {% endschema %}
+{% endschema %}
+
+<style>
+ .marmeto-masonary-section {
+  margin-top: {{ section.settings.margin_top }}px;
+  margin-bottom: {{ section.settings.margin_bottom }}px;
+}
+</style>
